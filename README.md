@@ -1,7 +1,7 @@
 # E-Commerce Marketplace
 Trang portfolio mô tả chi tiết một dự án thương mại điện tử theo hướng fullstack/microservices, tập trung vào luồng nghiệp vụ thực tế: voucher, giỏ hàng, checkout, xử lý đơn, hoàn trả và vận hành service trên môi trường production qua Docker.
 
-![Hero section](https://res.cloudinary.com/dus85dyli/image/upload/q_auto/f_auto/v1781693363/Screenshot_2026-05-26_181715_dqhlt5.png)
+[![Hero section](https://res.cloudinary.com/dus85dyli/image/upload/q_auto/f_auto/v1781693363/Screenshot_2026-05-26_181715_dqhlt5.png)](https://res.cloudinary.com/lpiheaxt/image/upload/v1792107857/Screenshot_2026-10-16_064307.png)
 
 ## Muc luc
 
