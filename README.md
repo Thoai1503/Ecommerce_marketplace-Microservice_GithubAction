@@ -15,7 +15,12 @@ Trang portfolio mô tả chi tiết một dự án thương mại điện tử t
 - [Chay bang Docker](#chay-bang-docker)
 - [Thong tin lien he](#thong-tin-lien-he)
 
-## Tong quan
+## To<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/4da9c3c2-f9d6-4470-90fe-41d374faec77" />
+<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/d6e41b50-767d-4fec-bed5-154fcc13922a" />
+<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/bcfec6e9-3683-4202-a25c-f747be300a64" />
+<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/fe99dd3a-b70f-44a9-9586-a1472683e85d" />
+<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/37ec4e67-e9f3-4556-8106-457ecbb5290d" />
+ng quan
 
 Dự án trình bày case study E-Commerce Platform với các nội dung chính:
 
@@ -40,6 +45,8 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Hỗ trợ mã giảm giá theo chiến dịch/sales mùa vụ.
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
 <img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/731fede0-bae1-462d-ad87-96ea68d6b02e" />
+
+<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/0c80ad77-596f-454d-b40c-50752f882684" />
 
 ### 2) Shopping cart
 
