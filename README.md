@@ -15,10 +15,6 @@ Trang portfolio mô tả chi tiết một dự án thương mại điện tử t
 - [Chay bang Docker](#chay-bang-docker)
 - [Thong tin lien he](#thong-tin-lien-he)
 
-<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/4da9c3c2-f9d6-4470-90fe-41d374faec77" />
-
-<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/d6e41b50-767d-4fec-bed5-154fcc13922a" />
-
 
 Dự án trình bày case study E-Commerce Platform với các nội dung chính:
 
@@ -44,7 +40,7 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
 <img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/731fede0-bae1-462d-ad87-96ea68d6b02e" />
 
-<img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/b5d4b281-12d3-4c60-968a-c49f7908425d" />
+<img width="1916" height="952" alt="Screenshot 2026-06-09 201424" src="https://github.com/user-attachments/assets/ed55f5b4-3e9e-4140-bc66-83825a03d3f6" />
 
 
 ### 2) Shopping cart
