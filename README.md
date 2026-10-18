@@ -1,6 +1,7 @@
 # E-Commerce Marketplace
 
-![Hero section](https://res.cloudinary.com/dizx3mbgw/image/upload/v1780035551/Screenshot_2026-05-26_181728_mqe4ep.png)
+![Uploading Screenshot 2026-05-26 181715.png…]()
+
 Trang portfolio mô tả chi tiết một dự án thương mại điện tử theo hướng fullstack/microservices, tập trung vào luồng nghiệp vụ thực tế: voucher, giỏ hàng, checkout, xử lý đơn, hoàn trả và vận hành service Docker.
 
 ## Mục lục
