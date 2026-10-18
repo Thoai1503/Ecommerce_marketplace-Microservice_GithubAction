@@ -44,7 +44,8 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
 <img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/731fede0-bae1-462d-ad87-96ea68d6b02e" />
 
-<img width="1918" height="915" alt="Screenshot 2026-06-09 201402" src="https://github.com/user-attachments/assets/0c80ad77-596f-454d-b40c-50752f882684" />
+<img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/b5d4b281-12d3-4c60-968a-c49f7908425d" />
+
 
 ### 2) Shopping cart
 
