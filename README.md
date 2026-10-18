@@ -61,13 +61,12 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Xem chi tiết đơn hàng và trạng thái vận chuyển.
 - Theo dõi từng kiện hàng trong cùng một đơn.
 
-### 5) Dịch vụ logistics tiếp nhận & xử lý kiện hàng
-
+### 5) Xử lý đơn hàng phía nhà bán hàng
 - Nhà bán hàng nhận thông báo đơn mới.
 - Chấp nhận đơn và nhận mã vận đơn từ đơn vị logistics.
 - Quản trị trạng thái đơn và xử lý yêu cầu hậu mãi.
 
-### 6) Xử lý đơn hàng phía nhà bán hàng
+### 6) Dịch vụ logistics tiếp nhận & xử lý kiện hàng
 
 - Đơn vị logistic tiếp nhận thông tin kiện hàng ngay khi người bán xác nhận gửi hàng
 - 1 mã vận đơn ứng với kiện hàng sẽ gửi về người bán khi ĐVVC xác nhận đã lấy.
