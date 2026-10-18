@@ -39,6 +39,7 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 
 - Hỗ trợ mã giảm giá theo chiến dịch/sales mùa vụ.
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
+<img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/731fede0-bae1-462d-ad87-96ea68d6b02e" />
 
 ### 2) Shopping cart
 
