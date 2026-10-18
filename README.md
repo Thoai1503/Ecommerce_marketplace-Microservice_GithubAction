@@ -1,4 +1,3 @@
-<img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/f48b3f25-7cd9-4063-9f84-6b3a9ed37f91" />
 # E-Commerce Marketplace
 
 <img width="1919" height="958" alt="Screenshot 2026-05-26 181715" src="https://github.com/user-attachments/assets/9f516b59-02e4-486a-a9c7-1c9aa7e791a7" />
@@ -45,6 +44,7 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 
 - Hỗ trợ mã giảm giá theo chiến dịch/sales mùa vụ.
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
+<img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/c5a62176-7dc5-40d1-babf-f8ec34d9ee8d" />
 
 ### 2) Giỏ hàng
 
