@@ -81,6 +81,8 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Đơn vị logistic tiếp nhận thông tin kiện hàng ngay khi người bán xác nhận gửi hàng
 - 1 mã vận đơn ứng với kiện hàng sẽ gửi về người bán khi ĐVVC xác nhận đã lấy.
 - Nhà bán hàng và người mua có thể dùng mã vận đơn này để tra cứu đơn hàng.
+<img width="1314" height="962" alt="Screenshot 2026-10-18 212042" src="https://github.com/user-attachments/assets/96a90fb7-3430-4cf3-88f1-3893d069dcd2" />
+
 
 ### 7) Quy trình trả hàng
 
