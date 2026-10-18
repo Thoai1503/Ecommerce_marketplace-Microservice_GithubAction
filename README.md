@@ -46,11 +46,13 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
 <img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/c5a62176-7dc5-40d1-babf-f8ec34d9ee8d" />
 
+
 ### 2) Giỏ hàng
 
 - Trải nghiệm giỏ hàng liền mạch trên máy tính và thiết bị di động.
 - Chuyển giỏ hàng khách thành giỏ hàng người dùng khi đăng nhập hoặc thanh toán.
 <img width="1677" height="911" alt="Screenshot 2026-06-19 162528" src="https://github.com/user-attachments/assets/372cc6e5-5130-4033-91aa-ddd8eecf7783" />
+
 
 ### 3) Thanh toán
 
@@ -58,6 +60,7 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Chọn vận chuyển theo kiện hàng.
 - Áp dụng voucher và cập nhật tổng tiền theo thời gian thực.
 <img width="1904" height="875" alt="Screenshot 2026-10-16 073636" src="https://github.com/user-attachments/assets/b4a71d2b-4cd8-4ccb-b9a9-55caf23fab69" />
+
 
 ### 4) Theo dõi đơn hàng
 
