@@ -73,6 +73,8 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Nhà bán hàng nhận thông báo đơn mới.
 - Chấp nhận đơn và nhận mã vận đơn từ đơn vị logistics.
 - Quản trị trạng thái đơn và xử lý yêu cầu hậu mãi.
+<img width="1083" height="636" alt="Screenshot 2026-10-16 074557" src="https://res.cloudinary.com/lpiheaxt/image/upload/v1792057509/Screenshot_2026-06-19_202756.png" />
+
 
 ### 6) Dịch vụ logistics tiếp nhận & xử lý kiện hàng
 
