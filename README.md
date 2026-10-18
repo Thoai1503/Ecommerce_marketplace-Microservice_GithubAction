@@ -61,19 +61,25 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 - Xem chi tiết đơn hàng và trạng thái vận chuyển.
 - Theo dõi từng kiện hàng trong cùng một đơn.
 
-### 5) Xử lý đơn hàng phía nhà bán hàng
+### 5) Dịch vụ logistics tiếp nhận & xử lý kiện hàng
 
 - Nhà bán hàng nhận thông báo đơn mới.
 - Chấp nhận đơn và nhận mã vận đơn từ đơn vị logistics.
 - Quản trị trạng thái đơn và xử lý yêu cầu hậu mãi.
 
-### 6) Quy trình trả hàng
+### 6) Xử lý đơn hàng phía nhà bán hàng
+
+- Đơn vị logistic tiếp nhận thông tin kiện hàng ngay khi người bán xác nhận gửi hàng
+- 1 mã vận đơn ứng với kiện hàng sẽ gửi về người bán khi ĐVVC xác nhận đã lấy.
+- Nhà bán hàng và người mua có thể dùng mã vận đơn này để tra cứu đơn hàng.
+
+### 7) Quy trình trả hàng
 
 - Duyệt/từ chối yêu cầu trả hàng theo chính sách.
 - Thu hồi sản phẩm qua đơn vị logistics.
 - Tự động hoàn tiền sau khi xác nhận hàng trả đạt yêu cầu.
 
-### 7) Theo dõi tài nguyên Docker
+### 8) Theo dõi tài nguyên Docker
 
 - Theo dõi tài nguyên và trạng thái các container service trong môi trường Linux VPS.
 
