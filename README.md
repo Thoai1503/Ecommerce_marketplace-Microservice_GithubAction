@@ -66,6 +66,8 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 
 - Xem chi tiết đơn hàng và trạng thái vận chuyển.
 - Theo dõi từng kiện hàng trong cùng một đơn.
+<img width="1083" height="636" alt="Screenshot 2026-10-16 074557" src="https://github.com/user-attachments/assets/24d993f5-7c17-491b-aff7-773287717aef" />
+
 
 ### 5) Xử lý đơn hàng phía nhà bán hàng
 - Nhà bán hàng nhận thông báo đơn mới.
