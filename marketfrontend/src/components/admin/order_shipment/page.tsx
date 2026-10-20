@@ -1,5 +1,6 @@
 "use client";
 
+import { getProductImageUrl } from "@/helper/productImage";
 import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -480,7 +481,7 @@ export default function AdminOrderShipmentPage() {
                                         <div className="flex items-start gap-3 min-w-0">
                                           {item.image ? (
                                             <img
-                                              src={item.image}
+                                              src={getProductImageUrl(item.image)}
                                               alt={item.productName}
                                               className="w-12 h-12 rounded-lg object-cover border border-slate-100"
                                             />

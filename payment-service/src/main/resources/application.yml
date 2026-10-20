@@ -16,7 +16,7 @@ spring:
       connection-timeout: 15000
       validation-timeout: 10000
       #    initialization-fail-timeout: 60000
-      keepalive-time: 120000  
+      keepalive-time: 120000
       max-lifetime: 600000
       idle-timeout: 30000
       connection-test-query: SELECT 1
@@ -41,7 +41,7 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:103.118.28.72:29092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

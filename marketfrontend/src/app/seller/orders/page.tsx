@@ -1,4 +1,5 @@
 "use client";
+import { getProductImageUrl } from "@/helper/productImage";
 import { useSellerAuth } from "@/context/SellerAuthContext";
 import { OrderShipments } from "@/types/data/OrderShipment";
 import { IOrderShipment } from "@/validators/orderShipment";
@@ -359,7 +360,7 @@ function ConfirmLogisticsModal({
                     >
                       {item.image ? (
                         <img
-                          src={item.image}
+                          src={getProductImageUrl(item.image)}
                           alt=""
                           width={64}
                           height={64}
@@ -1355,7 +1356,7 @@ const page = () => {
                         <div className="d-flex align-items-start ps-5">
                           {item.image && (
                             <img
-                              src={item.image}
+                              src={getProductImageUrl(item.image)}
                               alt={item.product_name}
                               className="rounded me-3"
                               width="60"

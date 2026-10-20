@@ -5,3 +5,9 @@ order-service/src/main/resources/application-local.properties
 
 payment-service/src/main/resources/application-local.yml
 stock-service/src/main/resources/application-local.properties
+
+# Deployment credentials (keep production.env.example as the safe template).
+.env
+.env.*
+**/.env
+**/.env.*

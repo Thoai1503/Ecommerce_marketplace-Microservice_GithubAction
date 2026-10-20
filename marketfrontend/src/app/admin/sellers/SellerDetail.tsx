@@ -1,6 +1,7 @@
 
 "use client";
 
+import { getProductImageUrl } from "@/helper/productImage";
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSellerDetail, useSellerOrderShipments } from '../../../hooks/admin/useSellers';
@@ -439,7 +440,11 @@ export default function SellerDetail() {
                                    <td className="px-6 py-4 pl-8">
                                       <div className="flex items-center gap-3">
                                          <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
-                                            <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
+                                            <img
+                                              src={getProductImageUrl(item.images[0])}
+                                              alt={item.name}
+                                              className="w-full h-full object-cover"
+                                            />
                                          </div>
                                          <div className="min-w-0">
                                             <span className="text-sm font-bold text-slate-700 group-hover:text-blue-600 transition-colors block truncate max-w-[200px]">{item.name}</span>

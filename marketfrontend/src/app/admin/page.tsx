@@ -1,5 +1,6 @@
 "use client";
 
+import { getProductImageUrl } from "@/helper/productImage";
 import React, { useState, useEffect } from "react";
 import { useAdminDashboard } from "../../hooks/admin/useAdminDashboard";
 import {
@@ -488,7 +489,7 @@ export default function AdminDashboard() {
                 {/* Rank & Image */}
                 <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
                   <img
-                    src={product.image}
+                    src={getProductImageUrl(product.image)}
                     alt={product.name}
                     className="w-full h-full object-cover"
                   />

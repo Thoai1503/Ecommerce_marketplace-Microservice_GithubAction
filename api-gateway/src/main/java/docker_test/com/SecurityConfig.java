@@ -69,7 +69,7 @@ public class SecurityConfig {
 						.requestMatchers("/api/admin/**").hasRole("ADMIN")
 						.requestMatchers("/users/**","/api/notifications/**","/api/cart/**").hasAnyRole("BUYER","SELLER")
 						//.requestMatchers("/api/orders/**").hasAnyRole("BUYER","SELLER","ADMIN")
-						.requestMatchers("/login","/api/product/**","/api/categories/**","/product/**","/auth/login","/shops/**","/api/vouchers","/static","/api/orders","/product-variant/**","/auth/register").permitAll()
+						.requestMatchers("/login","/api/product/**","/api/categories/**","/product/**","/auth/login","/shops/**","/api/vouchers","/static","/api/orders","/product-variant/**","/auth/register","/uploads","/uploads/**").permitAll()
 						.anyRequest().authenticated())
 				.addFilterBefore(customFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
 				.build();
@@ -86,6 +86,7 @@ public class SecurityConfig {
             "http://103.90.225.130:4000",
             "https://nexamart.duckdns.org",
             "http://103.118.28.72:4000",
+            "http://36.50.54.208:4000",
             "https://*.duckdns.org"
         ));
         config.setAllowedMethods(List.of(

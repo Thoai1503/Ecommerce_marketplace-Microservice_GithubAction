@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { IProduct } from "@/validators/product";
 import { Attribute } from "@/validators/attribute";
+import { getProductImageUrl } from "@/helper/productImage";
 
 type ProductLike = Partial<IProduct> & {
   attributes?: Record<string, string | number | Array<string | number>>;
@@ -577,12 +578,10 @@ export default function CategoryProductListing({
                           <div className="productImageShell">
                             <div className="ratio ratio-1x1 productImageWrap">
                               <Image
-                                src={
-                                  item.image_url ||
-                                  "https://via.placeholder.com/400?text=No+Image"
-                                }
+                                src={getProductImageUrl(item.image_url)}
                                 alt={item.product_name || "Product"}
                                 fill
+                                unoptimized
                                 className="object-fit-cover"
                                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                               />

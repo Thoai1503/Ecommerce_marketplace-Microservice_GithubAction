@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { API_URL } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import { useUserAuth } from "@/context/UserAuthContext";
 
 type PurchaseItem = {
@@ -219,10 +220,8 @@ const normalizeItem = (
     id,
     productName: pickText(item?.productName, item?.product_name, "Product"),
     variantName: pickText(item?.variantName, item?.variant_name),
-    image: pickText(
-      item?.image,
-      item?.imageUrl,
-      item?.image_url,
+    image: getProductImageUrl(
+      pickText(item?.image, item?.imageUrl, item?.image_url),
       "/image/user/avatar_default.jpg",
     ),
     quantity: asNumber(item?.quantity, 0),

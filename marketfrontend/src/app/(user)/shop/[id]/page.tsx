@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ShopSidebar from "@/components/client/shop/ShopSidebar";
 import Link from "next/link";
 import { API_URL } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import VoucherClaimButton from "@/components/client/voucher/VoucherClaimButton";
 import { useUserAuth } from "@/context/UserAuthContext";
 import { Check, ChevronLeft, ChevronRight, UserPlus } from "lucide-react";
@@ -210,9 +211,12 @@ export default function ShopPage() {
   // ===== HELPERS =====
   const normalizeImage = (url?: string) => {
     if (!url) return "/avatar-shop.png";
-    return url
-      .replace("/raw/upload/", "/image/upload/")
-      .replace("http://", "https://");
+    const imageUrl = getProductImageUrl(url, "/avatar-shop.png");
+    return /^https?:\/\//i.test(url)
+      ? imageUrl
+          .replace("/raw/upload/", "/image/upload/")
+          .replace("http://", "https://")
+      : imageUrl;
   };
 
   const onImgError = (e: any) => {

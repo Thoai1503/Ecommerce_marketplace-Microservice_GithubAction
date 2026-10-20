@@ -40,12 +40,12 @@ public class CorsConfig implements WebMvcConfigurer {
               .allowedOrigins(
                       "http://localhost:3000",
                       "http://localhost:3002",
-                      "http://localhost:3001",
+                      "http://localhost:4002",
                       "http://localhost:5173",
                       "http://127.0.0.1:5500",
                       "http://103.90.225.130:4000",
                       "http://103.90.225.130:4002",
-                    
+                      "http://36.50.54.208:4002",
                       "http://103.118.28.72:4002",
                       "http://103.90.225.130"
               )

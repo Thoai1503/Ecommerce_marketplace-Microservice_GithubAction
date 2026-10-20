@@ -1,6 +1,7 @@
 
 "use client";
 
+import { getProductImageUrl } from "@/helper/productImage";
 import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProducts } from '@/hooks/admin/useProducts';
@@ -81,7 +82,11 @@ export default function ProductsPage() {
       cell: ({ row }) => (
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
-            <img src={row.original.images[0]} alt="" className="w-full h-full object-cover" />
+            <img
+              src={getProductImageUrl(row.original.images[0])}
+              alt=""
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-bold text-slate-800 truncate group-hover:text-blue-600 transition-colors max-w-[250px]">{row.original.name}</p>
