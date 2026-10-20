@@ -16,6 +16,7 @@ import {
   ShippingSelection,
 } from "@/components/client/checkout_page/types";
 import type { Address } from "@/components/client/checkout_page/types";
+import { getProductImageUrl } from "@/helper/productImage";
 
 type PaymentMethod = "COD" | "VNPAY" | "BANK";
 
@@ -399,10 +400,10 @@ export default function CheckoutLeftSteps({
                           <div key={item.id}>
                             <div className="d-flex gap-3 py-2">
                               <img
-                                src={
-                                  item.productVariant?.imageUrl ||
-                                  "/placeholder.png"
-                                }
+                                src={getProductImageUrl(
+                                  item.productVariant?.imageUrl,
+                                  "/placeholder.png",
+                                )}
                                 alt={item.product?.name}
                                 style={styles.productImg}
                               />

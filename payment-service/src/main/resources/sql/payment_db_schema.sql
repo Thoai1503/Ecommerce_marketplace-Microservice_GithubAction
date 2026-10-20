@@ -1,0 +1,1 @@
+.\cart-service\mvnw.cmd -f .\cart-service\pom.xml clean package -DskipTests

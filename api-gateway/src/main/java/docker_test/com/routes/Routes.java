@@ -115,7 +115,7 @@ public class Routes {
   public RouterFunction<ServerResponse> defaultRoute() {
 	
   				return route("default_route")
-							.route(RequestPredicates.all(), http(marketplaceUrl))
+							.route(RequestPredicates.path("/uploads/**").negate(), http(marketplaceUrl))
 							.build();
   }
 //		

@@ -3,6 +3,7 @@ import { useSellerAuth } from "@/context/SellerAuthContext";
 import { useProductPage } from "@/feature/admin/hooks/useProductPage";
 import { IProduct } from "@/validators/product";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { getProductImageUrl } from "@/helper/productImage";
 import React, { useState } from "react";
 
 // interface Product {
@@ -314,10 +315,7 @@ const page = () => {
                     <td>
                       <div className="d-flex align-items-start">
                         <img
-                          src={
-                            product.image_url ||
-                            "https://via.placeholder.com/80"
-                          }
+                          src={getProductImageUrl(product.image_url)}
                           alt={product.product_name}
                           className="rounded me-3"
                           width="80"
@@ -414,7 +412,7 @@ const page = () => {
                         <div className="d-flex align-items-center ps-5">
                           {variant.image_url && (
                             <img
-                              src={variant.image_url}
+                              src={getProductImageUrl(variant.image_url)}
                               alt={variant.variant_name}
                               className="rounded me-3"
                               width="60"

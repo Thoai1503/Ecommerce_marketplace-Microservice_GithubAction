@@ -5,6 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useUserAuth } from "@/context/UserAuthContext";
 import { Cart } from "@/types/data/Cart";
 import { API_URL } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { CartItem, GroupedCartByShop } from "@/validators/cart";
 import { productVariantQuery } from "@/query/productVariant";
@@ -850,10 +851,10 @@ const ShoppingCart: React.FC = () => {
                               style={{ width: "96px", height: "96px" }}
                             >
                               <img
-                                src={
-                                  item.productVariant?.imageUrl ??
-                                  "/placeholder.png"
-                                }
+                                src={getProductImageUrl(
+                                  item.productVariant?.imageUrl,
+                                  "/placeholder.png",
+                                )}
                                 alt={item?.product?.name}
                                 className="w-100 h-100 object-fit-cover"
                               />
@@ -1105,7 +1106,7 @@ const ShoppingCart: React.FC = () => {
                 <div className="position-relative">
                   <div className="ratio ratio-1x1 bg-light">
                     <img
-                      src={product.image}
+                      src={getProductImageUrl(product.image)}
                       alt={product.name}
                       className="card-img-top object-fit-cover"
                     />

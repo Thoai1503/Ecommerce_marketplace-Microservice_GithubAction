@@ -1,0 +1,219 @@
+services:
+  logistic-service:
+    image: thoaimanhlong/logistic-service:latest
+    container_name: logistic-service
+    ports:
+      - "8007:8007"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_URL: jdbc:mysql://${DATABASE_HOST:?Set DATABASE_HOST}:${DATABASE_PORT:-3306}/logistic_service
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?Set DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${LOGISTICS_DATABASE_PASSWORD:?Set LOGISTICS_DATABASE_PASSWORD}
+    restart: unless-stopped
+    networks:
+      - ecommerce-net
+
+  logistics-frontend:
+    image: thoaimanhlong/logistics-frontend:latest
+    container_name: logistics-frontend
+    ports:
+      - "4002:3000"
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_LOGISTIC_URL: ${LOGISTICS_PUBLIC_URL:?Set LOGISTICS_PUBLIC_URL}
+      NEXT_PUBLIC_LOGISTICS_API_BASE_URL: ${LOGISTICS_PUBLIC_URL:?Set LOGISTICS_PUBLIC_URL}
+    restart: unless-stopped
+    networks:
+      - ecommerce-net
+
+  marketfrontend:
+    image: thoaimanhlong/ecommerce-frontend:latest
+    container_name: marketfrontend
+    restart: unless-stopped
+    ports:
+      - "${MARKETFRONTEND_PORT:-4000}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:?Set PUBLIC_API_URL}
+      NEXT_PUBLIC_UPLOAD_BASE_URL: ${PUBLIC_UPLOAD_URL:?Set PUBLIC_UPLOAD_URL}
+      INTERNAL_API: http://api-gateway:8000
+      NEXT_PUBLIC_ADDRESS_KEY: ${NEXT_PUBLIC_ADDRESS_KEY:?Set NEXT_PUBLIC_ADDRESS_KEY}
+      NEXT_PUBLIC_PROVINCE_API: ${NEXT_PUBLIC_PROVINCE_API:-https://dev-online-gateway.ghn.vn/shiip/public-api/master-data}
+      NEXT_PUBLIC_LOGISTICS_FEE_API: ${NEXT_PUBLIC_LOGISTICS_FEE_API:?Set NEXT_PUBLIC_LOGISTICS_FEE_API}
+    depends_on:
+      - api-gateway
+    networks:
+      - ecommerce-net
+
+  api-gateway:
+    image: thoaimanhlong/api-gateway:latest
+    container_name: api-gateway
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: "8000"
+      UPLOAD_DIR: /app/uploads
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
+      SERVICE_ORDER_URL: http://order-service:8002
+      SERVICE_CART_URL: http://cart-service:8003
+      SERVICE_LOGISTIC_URL: http://logistic-service:8007
+      SERVICE_PAYMENT_URL: http://payment-service:8008
+      SERVICE_STOCK_URL: http://stock-service:8009
+      SERVICE_MARKETPLACE_URL: http://marketplace-platform:8080
+    volumes:
+      - product_uploads:/app/uploads
+    depends_on:
+      - marketplace-platform
+      - cart-service
+      - order-service
+      - payment-service
+      - stock-service
+      - logistic-service
+    networks:
+      - ecommerce-net
+
+  marketplace-platform:
+    image: thoaimanhlong/ecommerce-backend:latest
+    container_name: marketplace-platform
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      UPLOAD_DIR: /app/uploads
+      DATABASE_URL: jdbc:mysql://${DATABASE_HOST:?Set DATABASE_HOST}:${DATABASE_PORT:-3306}/ecommerce?sslMode=REQUIRED&serverTimezone=Asia/Ho_Chi_Minh
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?Set DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:?Set KAFKA_BOOTSTRAP_SERVERS}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME:?Set CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY:?Set CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET:?Set CLOUDINARY_API_SECRET}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
+      EMAIL_VERIFICATION_SECRET: ${EMAIL_VERIFICATION_SECRET:?Set EMAIL_VERIFICATION_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL:?Set FRONTEND_URL}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:?Set PUBLIC_API_URL}
+      ORDER_SERVICE_URL: http://order-service:8002
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:?Set MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:?Set MAIL_PASSWORD}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
+      MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
+    volumes:
+      - product_uploads:/app/uploads
+    networks:
+      - ecommerce-net
+
+  cart-service:
+    image: thoaimanhlong/cart-service:latest
+    container_name: cart-service
+    restart: unless-stopped
+    expose:
+      - "8003"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: "8003"
+      DATABASE_URL: jdbc:mysql://${DATABASE_HOST:?Set DATABASE_HOST}:${DATABASE_PORT:-3306}/ecommerce?sslMode=REQUIRED&serverTimezone=Asia/Ho_Chi_Minh
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?Set DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+    networks:
+      - ecommerce-net
+
+  order-service:
+    image: thoaimanhlong/order-service:latest
+    container_name: order-service
+    restart: unless-stopped
+    expose:
+      - "8002"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: "8002"
+      DATABASE_URL: jdbc:mysql://${DATABASE_HOST:?Set DATABASE_HOST}:${DATABASE_PORT:-3306}/ecommerce?sslMode=REQUIRED&serverTimezone=Asia/Ho_Chi_Minh
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?Set DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:?Set KAFKA_BOOTSTRAP_SERVERS}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: "6379"
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME:?Set CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY:?Set CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET:?Set CLOUDINARY_API_SECRET}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
+      EMAIL_VERIFICATION_SECRET: ${EMAIL_VERIFICATION_SECRET:?Set EMAIL_VERIFICATION_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL:?Set FRONTEND_URL}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:?Set PUBLIC_API_URL}
+      PAYMENT_SERVICE_URL: http://payment-service:8008
+      LOGISTICS_SERVICE_URL: http://logistic-service:8007
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:?Set MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:?Set MAIL_PASSWORD}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
+      MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
+    depends_on:
+      - redis
+    networks:
+      - ecommerce-net
+
+  payment-service:
+    image: thoaimanhlong/payment_service:latest
+    container_name: payment-service
+    restart: unless-stopped
+    expose:
+      - "8008"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: ${DATABASE_HOST:?Set DATABASE_HOST}
+      DB_PORT: ${PAYMENT_DB_PORT:-3306}
+      DB_NAME: ${PAYMENT_DB_NAME:-payment_db}
+      DB_USER: ${DATABASE_USERNAME:?Set DATABASE_USERNAME}
+      DB_PASSWORD: ${PAYMENT_DATABASE_PASSWORD:?Set PAYMENT_DATABASE_PASSWORD}
+      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:?Set KAFKA_BOOTSTRAP_SERVERS}
+      VNPAY_TMN_CODE: ${VNPAY_TMN_CODE:?Set VNPAY_TMN_CODE}
+      VNPAY_HASH_SECRET: ${VNPAY_HASH_SECRET:?Set VNPAY_HASH_SECRET}
+      VNPAY_PAY_URL: ${VNPAY_PAY_URL:-https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+      VNPAY_RETURN_URL: ${VNPAY_RETURN_URL:?Set public VNPAY_RETURN_URL}
+      VIEW_URL: ${FRONTEND_URL:?Set FRONTEND_URL}
+    networks:
+      - ecommerce-net
+
+  stock-service:
+    image: thoaimanhlong/stock-service:latest
+    container_name: stock-service
+    restart: unless-stopped
+    expose:
+      - "8009"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: "8009"
+      DATABASE_URL: jdbc:mysql://${DATABASE_HOST:?Set DATABASE_HOST}:${DATABASE_PORT:-3306}/ecommerce?sslMode=REQUIRED&serverTimezone=Asia/Ho_Chi_Minh
+      DATABASE_USERNAME: ${DATABASE_USERNAME:?Set DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:?Set KAFKA_BOOTSTRAP_SERVERS}
+    networks:
+      - ecommerce-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: ecommerce-redis
+    restart: unless-stopped
+    expose:
+      - "6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
+    external: true
+    name: ecommerce-net
+
+volumes:
+  product_uploads:
+  redis_data:

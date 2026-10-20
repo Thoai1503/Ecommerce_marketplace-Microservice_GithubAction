@@ -15,6 +15,7 @@ import RejectProductModal from '@/components/admin/products/RejectProductModal';
 import DeleteConfirmationModal from '@/components/admin/products/DeleteConfirmationModal';
 import { DetailSkeleton } from '@/components/ui/Skeleton';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
+import { getProductImageUrl } from '@/helper/productImage';
 
 // Synced StatusConfig with ProductsPage
 const StatusConfig: Record<ProductStatus, { label: string; color: string; bgColor: string; borderColor: string; icon: any }> = {
@@ -168,7 +169,7 @@ export default function ProductDetail() {
           </button>
 
           <img 
-            src={activeImage} 
+            src={getProductImageUrl(activeImage)}
             alt="Zoomed" 
             className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300 select-none"
             onClick={(e) => e.stopPropagation()} 
@@ -268,7 +269,7 @@ export default function ProductDetail() {
                    {activeImage ? (
                      <>
                        <img 
-                         src={activeImage} 
+                         src={getProductImageUrl(activeImage)}
                          alt={product.name} 
                          className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105" 
                        />
@@ -322,7 +323,11 @@ export default function ProductDetail() {
                           : 'border-transparent hover:border-slate-300 opacity-60 hover:opacity-100 grayscale hover:grayscale-0'
                       }`}
                     >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
+                      <img
+                        src={getProductImageUrl(img)}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
                     </button>
                   ))}
                 </div>

@@ -1,0 +1,16 @@
+.git
+.env
+.env.*
+**/.env
+**/.env.*
+**/target
+**/node_modules
+**/.next
+**/build
+**/dist
+**/bin
+**/obj
+**/*.log
+ecommerce_mobile
+logistics-frontend/.next
+marketfrontend/.next

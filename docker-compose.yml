@@ -1,0 +1,65 @@
+services:
+  marketfrontend:
+    image: thoaimanhlong/ecommerce-frontend:latest
+    build:
+      context: ./marketfrontend
+      dockerfile: Dockerfile
+
+  logistics-frontend:
+    image: thoaimanhlong/logistics-frontend:latest
+    build:
+      context: ./logistics-frontend
+      dockerfile: Dockerfile
+
+  api-gateway:
+    image: thoaimanhlong/api-gateway:latest
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    environment:
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - product_uploads:/app/uploads
+
+  marketplace-platform:
+    image: thoaimanhlong/ecommerce-backend:latest
+    build:
+      context: ./Marketplace-platform
+      dockerfile: Dockerfile
+    environment:
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - product_uploads:/app/uploads
+
+  cart-service:
+    image: thoaimanhlong/cart-service:latest
+    build:
+      context: ./cart-service
+      dockerfile: Dockerfile
+
+  order-service:
+    image: thoaimanhlong/order-service:latest
+    build:
+      context: .
+      dockerfile: order-service/Dockerfile
+
+  payment-service:
+    image: thoaimanhlong/payment_service:latest
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+
+  stock-service:
+    image: thoaimanhlong/stock-service:latest
+    build:
+      context: .
+      dockerfile: stock-service/Dockerfile
+
+  logistic-service:
+    image: thoaimanhlong/logistic-service:latest
+    build:
+      context: ./logistic-service
+      dockerfile: Dockerfile
+
+volumes:
+  product_uploads:

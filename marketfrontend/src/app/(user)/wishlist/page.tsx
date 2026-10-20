@@ -4,6 +4,7 @@ import { useUserAuth } from "@/context/UserAuthContext";
 import { API_URL } from "@/helper/api";
 import { message } from "antd";
 import Link from "next/link";
+import { getProductImageUrl } from "@/helper/productImage";
 import { useEffect, useMemo, useState } from "react";
 
 type WishlistItem = {
@@ -201,7 +202,7 @@ export default function WishlistPage() {
                     <span className="discountBadge">-{discount}%</span>
                   )}
                   <img
-                    src={item.image_url || "/image/no-image.png"}
+                    src={getProductImageUrl(item.image_url)}
                     alt={item.product_name || "Product"}
                   />
                 </Link>

@@ -7,6 +7,7 @@ echo "🔄 Injecting runtime environment variables..."
 find /app/.next/static /app/.next/server -type f -name "*.js" | while read file; do
   sed -i \
     -e "s|RUNTIME_NEXT_PUBLIC_API_URL|${NEXT_PUBLIC_API_URL}|g" \
+    -e "s|RUNTIME_NEXT_PUBLIC_UPLOAD_BASE_URL|${NEXT_PUBLIC_UPLOAD_BASE_URL}|g" \
     -e "s|RUNTIME_NEXT_PUBLIC_ADDRESS_KEY|${NEXT_PUBLIC_ADDRESS_KEY}|g" \
     -e "s|RUNTIME_NEXT_PUBLIC_PROVINCE_API|${NEXT_PUBLIC_PROVINCE_API}|g" \
     -e "s|RUNTIME_NEXT_PUBLIC_LOGISTICS_FEE_API|${NEXT_PUBLIC_LOGISTICS_FEE_API}|g" \

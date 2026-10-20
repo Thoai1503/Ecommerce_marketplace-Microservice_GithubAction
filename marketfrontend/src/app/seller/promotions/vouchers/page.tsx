@@ -17,6 +17,7 @@ import {
 } from "@/service/vouchers";
 import { getProductByShopId } from "@/feature/admin/service";
 import { API_URL } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import {
   AdminVoucher,
   VoucherCampaign,
@@ -1802,10 +1803,7 @@ function ProductVoucherCreateModal({
                             >
                               <div className="d-flex gap-3">
                                 <img
-                                  src={
-                                    product.image_url ||
-                                    "https://via.placeholder.com/72x72?text=Item"
-                                  }
+                                  src={getProductImageUrl(product.image_url)}
                                   alt={product.product_name || "Product"}
                                   width="72"
                                   height="72"

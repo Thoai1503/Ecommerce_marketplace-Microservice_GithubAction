@@ -19,6 +19,7 @@ import type { ProductAttributePayload, ProductCreatePayload } from "./service";
 import { message, UploadFile, UploadProps } from "antd";
 import { useSellerAuth } from "@/context/SellerAuthContext";
 import { IProductVariant } from "@/validators/productVariant";
+import { getProductImageUrl } from "@/helper/productImage";
 
 const toFiniteNumber = (value: unknown) => {
   const parsed = Number(value);
@@ -457,8 +458,8 @@ export const useAddImageSeller = (id?: number) => {
           uid: String(item.id),
           name: item.image_url.split("/").pop() || `image-${item.id}`,
           status: "done" as const,
-          url: item.image_url,
-          thumbUrl: item.image_url,
+          url: getProductImageUrl(item.image_url),
+          thumbUrl: getProductImageUrl(item.image_url),
         };
       });
       console.log("📸 Mapped images:", images);

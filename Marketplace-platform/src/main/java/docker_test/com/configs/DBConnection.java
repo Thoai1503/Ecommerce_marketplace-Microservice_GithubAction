@@ -26,10 +26,12 @@ public final class DBConnection {
         }           
     }
 
-    private static String getEnvOrProp(String envKey, String propKey) {
-        String env = System.getenv(envKey);
-        if (env != null && !env.isBlank()) {
-            return env;
+    private static String getEnvOrProp(String propKey, String... envKeys) {
+        for (String envKey : envKeys) {
+            String value = System.getenv(envKey);
+            if (value != null && !value.isBlank()) {
+                return value;
+            }
         }
         return props.getProperty(propKey);
     }
@@ -57,9 +59,17 @@ public final class DBConnection {
 
             // HikariCP configuration
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl("jdbc:mysql://" + getEnvOrProp("DB_HOST", "mysql.host") + ":" + getEnvOrProp("DB_PORT", "mysql.port") + "/" + getEnvOrProp("DB_NAME", "mysql.database") + "?useSSL=true&requireSSL=true&serverTimezone=Asia/Ho_Chi_Minh");
-            config.setUsername(getEnvOrProp("DB_USER", "mysql.username"));
-            config.setPassword(getEnvOrProp("DB_PASSWORD", "mysql.password"));
+            String jdbcUrl = System.getenv("DATABASE_URL");
+            if (jdbcUrl == null || jdbcUrl.isBlank()) {
+                jdbcUrl = "jdbc:mysql://"
+                        + getEnvOrProp("mysql.host", "DB_HOST") + ":"
+                        + getEnvOrProp("mysql.port", "DB_PORT") + "/"
+                        + getEnvOrProp("mysql.database", "DB_NAME")
+                        + "?useSSL=true&requireSSL=true&serverTimezone=Asia/Ho_Chi_Minh";
+            }
+            config.setJdbcUrl(jdbcUrl);
+            config.setUsername(getEnvOrProp("mysql.username", "DB_USER", "DATABASE_USERNAME"));
+            config.setPassword(getEnvOrProp("mysql.password", "DB_PASSWORD", "DATABASE_PASSWORD"));
             config.addDataSourceProperty("cachePrepStmts", "true");
             config.addDataSourceProperty("prepStmtCacheSize", "250");
             config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

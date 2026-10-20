@@ -1,6 +1,7 @@
 // app/product/[product_slug]/page.tsx
 import ProductDetail from "@/components/client/product_detail/ProductDetail";
 import { INTERNAL_API } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 
@@ -68,7 +69,7 @@ export async function generateMetadata({
       type: "website", // hoặc "product"
       images:
         data.images?.map((img: any) => ({
-          url: img.image_url,
+          url: getProductImageUrl(img.image_url),
           width: 1200,
           height: 630,
           alt: productName,
@@ -81,7 +82,9 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: productName,
       description: description,
-      images: data.images?.[0]?.image_url ? [data.images[0].image_url] : [],
+      images: data.images?.[0]?.image_url
+        ? [getProductImageUrl(data.images[0].image_url)]
+        : [],
     },
 
     robots: {

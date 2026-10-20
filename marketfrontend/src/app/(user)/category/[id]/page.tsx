@@ -2,6 +2,7 @@
 export const dynamic = "force-dynamic";
 
 import { INTERNAL_API } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import CategorySidebar from "@/components/client/category/CategorySidebar";
 import Link from "next/link";
 import SortBar from "@/components/client/category/SortBar";
@@ -39,7 +40,7 @@ const getCategoryParentId = (category: any) =>
   Number(category?.parent_id ?? category?.parentId ?? 0);
 
 const getProductImage = (product: any) =>
-  product?.image_url || product?.image || "/no-image.png";
+  getProductImageUrl(product?.image_url || product?.image, "/no-image.png");
 
 const getOwnShopId = async (): Promise<number | null> => {
   const cookieStore = await cookies();

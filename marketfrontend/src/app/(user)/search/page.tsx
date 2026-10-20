@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { INTERNAL_API } from "@/helper/api";
+import { getProductImageUrl } from "@/helper/productImage";
 import Link from "next/link";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -257,7 +258,9 @@ export default async function SearchPage({
                     return (
                       <Link href={href} className="miniProduct" key={`shop-${product.id}`}>
                         <img
-                          src={product.image_url || product.image || "/image/no-image.png"}
+                          src={getProductImageUrl(
+                            product.image_url || product.image,
+                          )}
                           alt={product.product_name || "Product"}
                         />
                         <strong>{product.product_name}</strong>
@@ -329,7 +332,9 @@ export default async function SearchPage({
                       {discount > 0 && <span className="productDiscount">-{discount}%</span>}
                       <div className="productImageBox">
                         <img
-                          src={product.image_url || product.image || "/image/no-image.png"}
+                          src={getProductImageUrl(
+                            product.image_url || product.image,
+                          )}
                           alt={product.product_name || "Product"}
                         />
                       </div>

@@ -3,6 +3,7 @@ import { IProduct } from "@/validators/product";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { getProductImageUrl } from "@/helper/productImage";
 import styles from "./AllProduct.module.css";
 
 interface AllProductProps {
@@ -34,12 +35,10 @@ const AllProduct = ({ products }: AllProductProps) => {
         >
           <div className={styles.imageWrap}>
             <Image
-              src={
-                item.image_url ||
-                "https://via.placeholder.com/400?text=No+Image"
-              }
+              src={getProductImageUrl(item.image_url, "/image/no-image.png")}
               alt={item.product_name || "No image"}
               fill
+              unoptimized
               className={styles.productImage}
               sizes="(max-width: 768px) 50vw, (max-width: 992px) 33vw, 20vw"
             />

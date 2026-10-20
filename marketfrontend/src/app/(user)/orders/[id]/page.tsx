@@ -2,6 +2,7 @@
 
 import { CSSProperties, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { getProductImageUrl } from "@/helper/productImage";
 import {
   ArrowLeft,
   BadgeCheck,
@@ -236,10 +237,8 @@ const mapAdjustmentRequest = (raw: any): AdjustmentRequest | undefined => {
 const toOrderItem = (raw: any): OrderItem => ({
   id: String(raw?.id ?? raw?.itemId ?? ""),
   productName: pickText(raw?.productName, raw?.product_name, "San pham"),
-  productImage: pickText(
-    raw?.image,
-    raw?.productImage,
-    raw?.image_url,
+  productImage: getProductImageUrl(
+    pickText(raw?.image, raw?.productImage, raw?.image_url),
     "/placeholder-product.png",
   ),
   sku: pickText(

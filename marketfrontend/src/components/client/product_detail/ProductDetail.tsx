@@ -6,6 +6,7 @@ import { Cart, useAddToCartMutation } from "@/types/data/Cart";
 import { ICart } from "@/validators/cart";
 import { IProduct, IProductAttribute } from "@/validators/product";
 import { IProductVariant } from "@/validators/productVariant";
+import { getProductImageUrl } from "@/helper/productImage";
 import VoucherClaimButton from "@/components/client/voucher/VoucherClaimButton";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { message } from "antd";
@@ -589,7 +590,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
     "@type": "Product",
     name: detailData.product_name,
     description: getDescriptionText(descriptionHtml),
-    image: productImages.map((img) => img.image_url),
+    image: productImages.map((img) => getProductImageUrl(img.image_url)),
     sku: detailData.sku || `P${productId}`,
     mpn: detailData.sku || `P${productId}`,
     brand: {
@@ -635,11 +636,15 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                   {/* Main Image */}
                   <div className="main-image-container">
                     <Image
-                      src={displayImage}
+                      src={getProductImageUrl(
+                        displayImage,
+                        "/assets/images/ecommerce/product-1.jpg",
+                      )}
                       alt="Product image"
                       width={600}
                       height={600}
                       priority
+                      unoptimized
                       className="main-image"
                     />
                     {detailData.stock_quantity === 0 && (
@@ -660,10 +665,11 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                         onClick={() => setMainImage(pro.image_url)}
                       >
                         <Image
-                          src={pro.image_url}
+                          src={getProductImageUrl(pro.image_url)}
                           alt={`Thumbnail`}
                           width={100}
                           height={100}
+                          unoptimized
                           className="thumbnail-image"
                         />
                       </div>
@@ -745,13 +751,14 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                           >
                             <div className="variant-image">
                               <Image
-                                src={
-                                  v.image_url ||
-                                  "/assets/images/ecommerce/product-1.jpg"
-                                }
+                                src={getProductImageUrl(
+                                  v.image_url,
+                                  "/assets/images/ecommerce/product-1.jpg",
+                                )}
                                 alt={v.sku}
                                 width={80}
                                 height={80}
+                                unoptimized
                               />
                             </div>
                             <div className="variant-info">
@@ -1118,10 +1125,10 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                           className="product-item"
                         >
                           <img
-                            src={
-                              item.image_url ||
-                              "/assets/images/ecommerce/product-1.jpg"
-                            }
+                            src={getProductImageUrl(
+                              item.image_url,
+                              "/assets/images/ecommerce/product-1.jpg",
+                            )}
                             alt={item.product_name}
                             className="product-item-image"
                           />

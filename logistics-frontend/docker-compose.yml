@@ -1,0 +1,13 @@
+services:
+  logistics-frontend:
+    image: thoaimanhlong/logistics-frontend:latest
+    container_name: logistics-frontend
+    ports:
+      - "4002:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_LOGISTIC_URL: "http://36.50.54.208:8007"
+    #     NEXT_PUBLIC_LOGISTICS_API_BASE_URL: "${NEXT_PUBLIC_LOGISTICS_API_BASE_URL:-}"
+    restart: unless-stopped
