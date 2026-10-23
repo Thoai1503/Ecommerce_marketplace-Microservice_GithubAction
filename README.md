@@ -1,8 +1,17 @@
 # E-Commerce Marketplace
-<video src="https://res.cloudinary.com/lpiheaxt/video/upload/v1792108872/Video_Project_8.mp4" controls width="640">
-    Trình duyệt của bạn không hỗ trợ video.
+<video
+    width="640"
+    height="360"
+    controls
+    autoplay
+    muted
+    loop
+    poster="thumbnail.jpg"
+    preload="metadata"
+>
+    <source src="https://res.cloudinary.com/lpiheaxt/video/upload/v1792108872/Video_Project_8.mp4" type="video/mp4">
+    Trình duyệt không hỗ trợ video HTML5.
 </video>
-
 <img width="1919" height="958" alt="Screenshot 2026-05-26 181715" src="https://github.com/user-attachments/assets/9f516b59-02e4-486a-a9c7-1c9aa7e791a7" />
 
 
