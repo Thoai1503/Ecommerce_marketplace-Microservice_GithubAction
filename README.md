@@ -1,5 +1,4 @@
 # E-Commerce Marketplace
-
 <img width="1919" height="958" alt="Screenshot 2026-05-26 181715" src="https://github.com/user-attachments/assets/9f516b59-02e4-486a-a9c7-1c9aa7e791a7" />
 
 
