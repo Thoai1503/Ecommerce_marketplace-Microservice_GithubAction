@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_order_service_src_main_java_docker_test_com_controller_admin_adminordercontroller_java", "label": "AdminOrderController.java", "file_type": "code", "source_file": "order-service/src/main/java/docker_test/com/controller/admin/AdminOrderController.java", "source_location": "L1"}], "edges": [], "raw_calls": []}
