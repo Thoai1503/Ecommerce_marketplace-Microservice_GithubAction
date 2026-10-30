@@ -628,7 +628,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
       <div className="product-detail-wrapper">
         {/* PRODUCT IMAGE & INFO SECTION */}
         <div className="product-main-section">
-          <div className="container-lg">
+          <div className="container-xl px-3 px-md-4">
             <div className="product-grid">
               {/* LEFT - GALLERY */}
               <div className="product-gallery-col">
@@ -829,7 +829,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
 
         {/* SHOP SECTION */}
         <div className="shop-section">
-          <div className="container-lg">
+          <div className="container-xl px-3 px-md-4">
             {isShopSectionLoading ? (
               <div className="shop-loading">
                 <Skeleton style={{ height: "200px", borderRadius: "12px" }} />
@@ -893,7 +893,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
 
         {/* CONTENT SECTION */}
         <div className="content-section">
-          <div className="container-lg">
+          <div className="container-xl px-3 px-md-4">
             <div className="content-grid">
               {/* MAIN CONTENT */}
               <div className="main-content">
@@ -1160,8 +1160,8 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
 
         <style jsx>{`
           * {
-            --primary-color: #d70018;
-            --primary-dark: #b5000f;
+            --primary-color: #137fec;
+            --primary-dark: #0f66c2;
             --text-primary: #1f2937;
             --text-secondary: #6b7280;
             --text-light: #9ca3af;
@@ -1169,11 +1169,11 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
             --bg-light: #f9fafb;
             --bg-lighter: #fafbfc;
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 14px rgba(19, 127, 236, 0.18);
           }
 
           .product-detail-wrapper {
-            background: #ffffff;
+            background: #f8fafc;
             font-family:
               -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
               "Ubuntu", "Cantarell", sans-serif;
@@ -1181,7 +1181,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
 
           /* MAIN SECTION */
           .product-main-section {
-            padding: 40px 0;
+            padding: 32px 0;
             border-bottom: 1px solid var(--border-color);
           }
 
@@ -1197,6 +1197,11 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
             display: flex;
             flex-direction: column;
             gap: 16px;
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
           }
 
           .main-image-container {
@@ -1252,7 +1257,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
 
           .thumbnail.active {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(215, 0, 24, 0.1);
+            box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.12);
           }
 
           .thumbnail-image {
@@ -1265,6 +1270,14 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
           .product-info-col {
             display: flex;
             flex-direction: column;
+          }
+
+          .product-info-container {
+            padding: 24px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
           }
 
           .product-title {
@@ -1358,7 +1371,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
           }
 
           .discount-badge {
-            background: #fecaca;
+            background: #dbeafe;
             color: var(--primary-dark);
             padding: 6px 10px;
             border-radius: 6px;
@@ -1399,7 +1412,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
 
           .variant-option.selected {
             border-color: var(--primary-color);
-            background: rgba(215, 0, 24, 0.05);
+            background: rgba(19, 127, 236, 0.05);
           }
 
           .variant-image {
@@ -1959,6 +1972,11 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
           @media (max-width: 640px) {
             .product-main-section {
               padding: 24px 0;
+            }
+
+            .product-gallery,
+            .product-info-container {
+              padding: 16px;
             }
 
             .product-title {
