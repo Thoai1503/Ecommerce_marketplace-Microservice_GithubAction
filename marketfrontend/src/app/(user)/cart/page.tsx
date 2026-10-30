@@ -12,6 +12,7 @@ import { productVariantQuery } from "@/query/productVariant";
 import { productQuery } from "@/feature/client/query";
 import { clearAuth, getValidAccessToken } from "@/lib/authSession";
 import Link from "next/link";
+import Image from "next/image";
 
 type CartStateItem = CartItem & {
   selected: boolean;
@@ -70,6 +71,13 @@ const resolveVariantId = (item: any): number | null => {
 
 const getShopDisplayName = (shop: any, fallback = "Đang tải tên cửa hàng...") =>
   shop?.shopName || shop?.shop_name || fallback;
+
+const getFirstImageUrl = (...values: unknown[]): string => {
+  const image = values.find(
+    (value) => typeof value === "string" && value.trim().length > 0,
+  );
+  return typeof image === "string" ? image.trim() : "";
+};
 
 const isAuthQueryError = (error: unknown) => {
   const err = error as any;
@@ -190,6 +198,7 @@ const ShoppingCart: React.FC = () => {
           product: {
             id: productData?.id ?? item.product_id,
             name: productData?.name ?? "",
+            imageUrl: productData?.imageUrl ?? "",
             shop: {
               id: productData?.shop?.id ?? 0,
               userId: productData?.shop?.userId ?? 0,
@@ -291,6 +300,12 @@ const ShoppingCart: React.FC = () => {
             (item.product as any)?.name ??
             (item.product as any)?.product_name ??
             "",
+          imageUrl: getFirstImageUrl(
+            productData?.imageUrl,
+            productData?.image_url,
+            (item.product as any)?.imageUrl,
+            (item.product as any)?.image_url,
+          ),
           shop: {
             id: productData?.shop?.id ?? item.product?.shop?.id ?? 0,
             userId:
@@ -314,8 +329,12 @@ const ShoppingCart: React.FC = () => {
                 sku: variantData?.sku ?? currentVariant?.sku ?? "",
                 price: variantData?.price ?? currentVariant?.price ?? 0,
                 stockQuantity: variantStockQuantity ?? 0,
-                imageUrl:
-                  variantData?.imageUrl ?? currentVariant?.imageUrl ?? "",
+                imageUrl: getFirstImageUrl(
+                  variantData?.imageUrl,
+                  variantData?.image_url,
+                  (currentVariant as any)?.imageUrl,
+                  (currentVariant as any)?.image_url,
+                ),
               }
             : null,
         width: variantData?.width ?? 0,
@@ -876,16 +895,22 @@ const ShoppingCart: React.FC = () => {
                               style={{ width: "20px", height: "20px" }}
                             />
                             <div
-                              className="bg-light rounded overflow-hidden border flex-shrink-0"
+                              className="bg-light rounded overflow-hidden border flex-shrink-0 position-relative"
                               style={{ width: "96px", height: "96px" }}
                             >
-                              <img
+                              <Image
                                 src={getProductImageUrl(
-                                  item.productVariant?.imageUrl,
-                                  "/placeholder.png",
+                                  getFirstImageUrl(
+                                    item.productVariant?.imageUrl,
+                                    item.product?.imageUrl,
+                                  ),
+                                  "/image/no-image.png",
                                 )}
                                 alt={item?.product?.name}
-                                className="w-100 h-100 object-fit-cover"
+                                fill
+                                unoptimized
+                                sizes="96px"
+                                className="object-fit-cover"
                               />
                             </div>
                             <div className="flex-grow-1 min-w-0">
@@ -1142,11 +1167,14 @@ const ShoppingCart: React.FC = () => {
                 style={{ borderRadius: 12 }}
               >
                 <div className="position-relative">
-                  <div className="ratio ratio-1x1 bg-light">
-                    <img
+                  <div className="ratio ratio-1x1 bg-light position-relative">
+                    <Image
                       src={getProductImageUrl(product.image)}
                       alt={product.name}
-                      className="card-img-top object-fit-cover"
+                      fill
+                      unoptimized
+                      sizes="(max-width: 768px) 50vw, (max-width: 992px) 25vw, 16vw"
+                      className="object-fit-cover"
                     />
                   </div>
                   {product.badge && (

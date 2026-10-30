@@ -191,7 +191,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
       "",
   ).trim();
   const [mainImage, setMainImage] = useState(
-    productImages[0]?.image_url || "/assets/images/ecommerce/product-1.jpg",
+    productImages[0]?.image_url || "/image/no-image.png",
   );
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -280,7 +280,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
   useEffect(() => {
     if (
       productImages.length > 0 &&
-      (!mainImage || mainImage === "/assets/images/ecommerce/product-1.jpg")
+        (!mainImage || mainImage === "/image/no-image.png")
     ) {
       setMainImage(productImages[0].image_url);
     }
@@ -638,7 +638,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                     <Image
                       src={getProductImageUrl(
                         displayImage,
-                        "/assets/images/ecommerce/product-1.jpg",
+                        "/image/no-image.png",
                       )}
                       alt="Product image"
                       width={600}
@@ -753,7 +753,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                               <Image
                                 src={getProductImageUrl(
                                   v.image_url,
-                                  "/assets/images/ecommerce/product-1.jpg",
+                                  "/image/no-image.png",
                                 )}
                                 alt={v.sku}
                                 width={80}
@@ -838,7 +838,10 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
               <div className="shop-card">
                 <div className="shop-left">
                   <img
-                    src={shop?.shop_logo || "/assets/images/avatar-shop.png"}
+                    src={getProductImageUrl(
+                      shop?.shop_logo,
+                      "/image/no-image.png",
+                    )}
                     alt="Shop logo"
                     className="shop-avatar"
                   />
@@ -1127,7 +1130,7 @@ const ProductDetail = ({ data, productSlug }: ProductDetailProps) => {
                           <img
                             src={getProductImageUrl(
                               item.image_url,
-                              "/assets/images/ecommerce/product-1.jpg",
+                              "/image/no-image.png",
                             )}
                             alt={item.product_name}
                             className="product-item-image"

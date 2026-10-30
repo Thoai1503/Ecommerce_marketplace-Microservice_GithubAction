@@ -2,6 +2,8 @@ package docker_test.com.models.product;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public final class ProductImage {
  
 	private Integer id;
@@ -40,6 +42,7 @@ public final class ProductImage {
         return product_id;
     }
 
+    @JsonProperty("product_id")
     public void setProductId(Integer product_id) {
         this.product_id = product_id;
     }
@@ -48,6 +51,7 @@ public final class ProductImage {
         return image_url;
     }
 
+    @JsonProperty("image_url")
     public void setImageUrl(String image_url) {
         this.image_url = image_url;
     }
@@ -56,6 +60,7 @@ public final class ProductImage {
         return display_order;
     }
 
+    @JsonProperty("display_order")
     public void setDisplayOrder(Integer display_order) {
         this.display_order = display_order;
     }
@@ -64,6 +69,7 @@ public final class ProductImage {
         return is_thumbnail;
     }
 
+    @JsonProperty("is_thumbnail")
     public void setThumbnail(Integer is_thumbnail) {
         this.is_thumbnail = is_thumbnail;
     }
@@ -72,6 +78,7 @@ public final class ProductImage {
         return created_at;
     }
 
+    @JsonProperty("created_at")
     public void setCreatedAt(LocalDateTime created_at) {
         this.created_at = created_at;
     }
