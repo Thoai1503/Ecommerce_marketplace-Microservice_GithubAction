@@ -1,6 +1,8 @@
 # E-Commerce Marketplace
 
-![Hero section](https://res.cloudinary.com/dizx3mbgw/image/upload/v1780035551/Screenshot_2026-05-26_181728_mqe4ep.png)
+<img width="1919" height="958" alt="Screenshot 2026-05-26 181715" src="https://github.com/user-attachments/assets/9f516b59-02e4-486a-a9c7-1c9aa7e791a7" />
+
+
 Trang portfolio mô tả chi tiết một dự án thương mại điện tử theo hướng fullstack/microservices, tập trung vào luồng nghiệp vụ thực tế: voucher, giỏ hàng, checkout, xử lý đơn, hoàn trả và vận hành service Docker.
 
 ## Mục lục
@@ -42,36 +44,53 @@ Dự án trình bày case study E-Commerce Platform với các nội dung chính
 
 - Hỗ trợ mã giảm giá theo chiến dịch/sales mùa vụ.
 - Dữ liệu voucher đa dạng: loại giảm giá, điều kiện áp dụng, thời hạn, phạm vi áp dụng.
+<img width="638" height="797" alt="Screenshot 2026-06-10 223022" src="https://github.com/user-attachments/assets/c5a62176-7dc5-40d1-babf-f8ec34d9ee8d" />
+
 
 ### 2) Giỏ hàng
 
 - Trải nghiệm giỏ hàng liền mạch trên máy tính và thiết bị di động.
 - Chuyển giỏ hàng khách thành giỏ hàng người dùng khi đăng nhập hoặc thanh toán.
+<img width="1677" height="911" alt="Screenshot 2026-06-19 162528" src="https://github.com/user-attachments/assets/372cc6e5-5130-4033-91aa-ddd8eecf7783" />
+
 
 ### 3) Thanh toán
 
 - Tích hợp nhiều phương thức thanh toán.
 - Chọn vận chuyển theo kiện hàng.
 - Áp dụng voucher và cập nhật tổng tiền theo thời gian thực.
+<img width="1904" height="875" alt="Screenshot 2026-10-16 073636" src="https://github.com/user-attachments/assets/b4a71d2b-4cd8-4ccb-b9a9-55caf23fab69" />
+
 
 ### 4) Theo dõi đơn hàng
 
 - Xem chi tiết đơn hàng và trạng thái vận chuyển.
 - Theo dõi từng kiện hàng trong cùng một đơn.
+<img width="1083" height="636" alt="Screenshot 2026-10-16 074557" src="https://github.com/user-attachments/assets/24d993f5-7c17-491b-aff7-773287717aef" />
+
 
 ### 5) Xử lý đơn hàng phía nhà bán hàng
-
 - Nhà bán hàng nhận thông báo đơn mới.
 - Chấp nhận đơn và nhận mã vận đơn từ đơn vị logistics.
 - Quản trị trạng thái đơn và xử lý yêu cầu hậu mãi.
+<img width="1083" height="636" alt="Screenshot 2026-10-16 074557" src="https://res.cloudinary.com/lpiheaxt/image/upload/v1792057509/Screenshot_2026-06-19_202756.png" />
 
-### 6) Quy trình trả hàng
+
+### 6) Dịch vụ logistics tiếp nhận & xử lý kiện hàng
+
+- Đơn vị logistic tiếp nhận thông tin kiện hàng ngay khi người bán xác nhận gửi hàng
+- 1 mã vận đơn ứng với kiện hàng sẽ gửi về người bán khi ĐVVC xác nhận đã lấy.
+- Nhà bán hàng và người mua có thể dùng mã vận đơn này để tra cứu đơn hàng.
+<img width="1314" height="962" alt="Screenshot 2026-10-18 212042" src="https://github.com/user-attachments/assets/96a90fb7-3430-4cf3-88f1-3893d069dcd2" />
+
+
+### 7) Quy trình trả hàng
 
 - Duyệt/từ chối yêu cầu trả hàng theo chính sách.
 - Thu hồi sản phẩm qua đơn vị logistics.
 - Tự động hoàn tiền sau khi xác nhận hàng trả đạt yêu cầu.
 
-### 7) Theo dõi tài nguyên Docker
+### 8) Theo dõi tài nguyên Docker
 
 - Theo dõi tài nguyên và trạng thái các container service trong môi trường Linux VPS.
 
@@ -344,10 +363,8 @@ Không cần khởi động toàn bộ service nếu chỉ kiểm thử một ch
 - Spring Boot: trong thư mục service, chạy `.\mvnw.cmd test` và `.\mvnw.cmd package`. Riêng stock service, cài đặt Marketplace artifact trước.
 - Next.js: trong từng giao diện, chạy `npm run lint` và `npm run build`.
 - Flutter: trong `ecommerce_mobile`, chạy `flutter analyze` và `flutter test`.
-- Build toàn bộ image local bằng [docker-compose.yml](./docker-compose.yml): chạy `docker compose build`. File này chỉ khai báo build context và Dockerfile cho từng service, không khởi động container.
-- Image được gắn tag `thoaimanhlong/...`. `order-service` và `stock-service` dùng build context từ thư mục gốc repository; Dockerfile của stock build Marketplace artifact làm dependency trước.
-- Dockerfile Marketplace chạy WAR trên Tomcat cổng `8080`; các service khác expose cổng theo cấu hình Spring Boot.
-- Các Compose riêng trong `logistic-service/` và `logistics-frontend/` dùng để chạy độc lập; không cần dùng cho thao tác build local.
+- Mỗi backend có Dockerfile riêng; build context là thư mục backend tương ứng. Dockerfile Marketplace chạy WAR trên Tomcat cổng `8080`; xem `EXPOSE` trong Dockerfile của từng service.
+- Hiện có Compose riêng cho logistic service và logistics frontend, không phải cấu hình điều phối toàn hệ thống. Kiểm tra và thay credentials được ghi trực tiếp trước khi sử dụng.
 - `.github/workflows/` chứa workflow CI/CD cho giao diện và triển khai riêng từng backend. Kiểm tra secrets, nhánh kích hoạt và máy chủ đích trước khi bật.
 
 ## Tài liệu và SQL
