@@ -17,7 +17,7 @@ import { useAddresses } from "@/hooks/useAddresses";
 // Dữ liệu mẫu cho city, district, ward (city vẫn dùng map tĩnh, district/ward lấy động)
 const cityMap = { 202: "TP. Hồ Chí Minh", 1: "Hà Nội" };
 
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { message } from "antd";
 import { ADDRESS_KEY, API_URL, PROVINCE_API } from "@/helper/api";
 import {
@@ -31,6 +31,8 @@ import { Cart } from "@/types/data/Cart";
 import { getVoucherRules } from "@/service/vouchers";
 import { calculateFeeOfLOGS } from "@/service/calculateFeeAPI";
 import { getAddressByShopId } from "@/service/addresses";
+import { productQuery } from "@/feature/client/query";
+import { productVariantQuery } from "@/query/productVariant";
 
 // Hàm fetch districts theo provinceId
 async function fetchDistrictsByProvince(provinceId: number) {
@@ -955,6 +957,34 @@ export default function CheckoutPage() {
     Record<number, number[]>
   >({});
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const checkoutProductQueries = useQueries({
+    queries: cartItems.map((item) => {
+      const productId = Number(
+        item?.product?.id ??
+          (item?.product as any)?.product_id ??
+          (item as any)?.product_id ??
+          0,
+      );
+      return {
+        ...productQuery.detail_with_shop(productId),
+        enabled: productId > 0,
+      };
+    }),
+  });
+  const checkoutVariantQueries = useQueries({
+    queries: cartItems.map((item) => {
+      const variantId = Number(
+        item?.productVariant?.id ??
+          (item?.productVariant as any)?.variant_id ??
+          (item as any)?.variant_id ??
+          0,
+      );
+      return {
+        ...productVariantQuery.detail(variantId),
+        enabled: variantId > 0,
+      };
+    }),
+  });
   const [backendVoucherCalculation, setBackendVoucherCalculation] =
     useState<BackendVoucherCalculation>(() =>
       createEmptyBackendVoucherCalculation(),
@@ -969,6 +999,51 @@ export default function CheckoutPage() {
     addresses[0];
 
   const hasAddress = Boolean(defaultAddress) && addresses.length > 0;
+
+  useEffect(() => {
+    if (cartItems.length === 0) return;
+
+    const nextCartItems = cartItems.map((item, index) => {
+      const productData = checkoutProductQueries[index]?.data;
+      const variantData = checkoutVariantQueries[index]?.data;
+      const productImage =
+        productData?.imageUrl ??
+        productData?.image_url ??
+        item.product?.imageUrl ??
+        (item.product as any)?.image_url ??
+        "";
+      const variantImage =
+        variantData?.imageUrl ??
+        variantData?.image_url ??
+        item.productVariant?.imageUrl ??
+        (item.productVariant as any)?.image_url ??
+        "";
+      const nextProductImage = String(productImage).trim();
+      const nextVariantImage = String(variantImage).trim();
+
+      if (
+        nextProductImage === (item.product?.imageUrl ?? "") &&
+        (!item.productVariant ||
+          nextVariantImage === (item.productVariant.imageUrl ?? ""))
+      ) {
+        return item;
+      }
+
+      return {
+        ...item,
+        product: item.product
+          ? { ...item.product, imageUrl: nextProductImage }
+          : item.product,
+        productVariant: item.productVariant
+          ? { ...item.productVariant, imageUrl: nextVariantImage }
+          : item.productVariant,
+      };
+    });
+
+    if (nextCartItems.some((item, index) => item !== cartItems[index])) {
+      setCartItems(nextCartItems);
+    }
+  }, [cartItems, checkoutProductQueries, checkoutVariantQueries]);
 
   useEffect(() => {
     async function mapAddresses() {

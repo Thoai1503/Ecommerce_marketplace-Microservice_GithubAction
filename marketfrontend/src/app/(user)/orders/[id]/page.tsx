@@ -239,7 +239,7 @@ const toOrderItem = (raw: any): OrderItem => ({
   productName: pickText(raw?.productName, raw?.product_name, "San pham"),
   productImage: getProductImageUrl(
     pickText(raw?.image, raw?.productImage, raw?.image_url),
-    "/placeholder-product.png",
+    "/image/no-image.png",
   ),
   sku: pickText(
     raw?.sku,

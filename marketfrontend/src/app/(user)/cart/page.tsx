@@ -12,6 +12,7 @@ import { productVariantQuery } from "@/query/productVariant";
 import { productQuery } from "@/feature/client/query";
 import { clearAuth, getValidAccessToken } from "@/lib/authSession";
 import Link from "next/link";
+import Image from "next/image";
 
 type CartStateItem = CartItem & {
   selected: boolean;
@@ -68,8 +69,15 @@ const resolveVariantId = (item: any): number | null => {
   );
 };
 
-const getShopDisplayName = (shop: any, fallback = "Loading shop name...") =>
+const getShopDisplayName = (shop: any, fallback = "Đang tải tên cửa hàng...") =>
   shop?.shopName || shop?.shop_name || fallback;
+
+const getFirstImageUrl = (...values: unknown[]): string => {
+  const image = values.find(
+    (value) => typeof value === "string" && value.trim().length > 0,
+  );
+  return typeof image === "string" ? image.trim() : "";
+};
 
 const isAuthQueryError = (error: unknown) => {
   const err = error as any;
@@ -190,6 +198,7 @@ const ShoppingCart: React.FC = () => {
           product: {
             id: productData?.id ?? item.product_id,
             name: productData?.name ?? "",
+            imageUrl: productData?.imageUrl ?? "",
             shop: {
               id: productData?.shop?.id ?? 0,
               userId: productData?.shop?.userId ?? 0,
@@ -291,6 +300,12 @@ const ShoppingCart: React.FC = () => {
             (item.product as any)?.name ??
             (item.product as any)?.product_name ??
             "",
+          imageUrl: getFirstImageUrl(
+            productData?.imageUrl,
+            productData?.image_url,
+            (item.product as any)?.imageUrl,
+            (item.product as any)?.image_url,
+          ),
           shop: {
             id: productData?.shop?.id ?? item.product?.shop?.id ?? 0,
             userId:
@@ -314,8 +329,12 @@ const ShoppingCart: React.FC = () => {
                 sku: variantData?.sku ?? currentVariant?.sku ?? "",
                 price: variantData?.price ?? currentVariant?.price ?? 0,
                 stockQuantity: variantStockQuantity ?? 0,
-                imageUrl:
-                  variantData?.imageUrl ?? currentVariant?.imageUrl ?? "",
+                imageUrl: getFirstImageUrl(
+                  variantData?.imageUrl,
+                  variantData?.image_url,
+                  (currentVariant as any)?.imageUrl,
+                  (currentVariant as any)?.image_url,
+                ),
               }
             : null,
         width: variantData?.width ?? 0,
@@ -709,33 +728,49 @@ const ShoppingCart: React.FC = () => {
 
   if ((isLoggedIn && status === "pending") || isGuestLoading) {
     return (
-      <div className="container py-5 text-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
+      <main
+        className="flex-grow-1 py-4 py-md-5"
+        style={{ background: "#f8fafc" }}
+      >
+        <div className="container-xl px-3 px-md-4 text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Đang tải...</span>
+          </div>
+          <p className="mt-3 text-secondary fw-semibold mb-0">
+            Đang tải giỏ hàng...
+          </p>
         </div>
-        <p className="mt-3 text-muted">Loading shopping cart...</p>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="container py-4">
-      <div className="row g-4">
+    <main
+      className="flex-grow-1 py-4 py-md-5"
+      style={{ background: "#f8fafc" }}
+    >
+      <div className="container-xl px-3 px-md-4">
+        <div className="row g-4">
         {/* Left Column: Cart Items */}
         <div className="col-lg-8">
           <div className="d-flex align-items-center justify-content-between mb-4">
-            <h2 className="h3 fw-bold d-flex align-items-center gap-3 mb-0">
-              Shopping Cart
-              <span className="badge bg-light text-dark fs-6 fw-normal">
-                ({selectableItems.length} items)
+            <h2 className="h4 fw-bold d-flex align-items-center gap-3 mb-0">
+              Giỏ hàng
+              <span className="badge text-bg-light border text-dark fs-6 fw-normal">
+                ({selectableItems.length} sản phẩm)
               </span>
             </h2>
           </div>
 
           {/* Select All Header */}
           <div
-            className="card shadow-sm mb-3 sticky-top"
-            style={{ top: "72px", zIndex: 40 }}
+            className="card border-0 shadow-sm rounded-3 mb-3 sticky-top"
+            style={{
+              top: "72px",
+              zIndex: 40,
+              borderRadius: 12,
+              boxShadow: "0 4px 24px rgba(15, 23, 42, 0.07)",
+            }}
           >
             <div className="card-body py-3">
               <div className="row align-items-center">
@@ -754,15 +789,15 @@ const ShoppingCart: React.FC = () => {
                 </div>
                 <div className="col">
                   <span className="fw-semibold">
-                    Select all ({selectableItems.length})
+                    Chọn tất cả ({selectableItems.length})
                   </span>
                 </div>
                 <div className="col-md-7 d-none d-md-block">
                   <div className="row text-center text-muted small fw-medium">
-                    <div className="col-3">Unit price</div>
-                    <div className="col-3">Quantity</div>
-                    <div className="col-3">Total</div>
-                    <div className="col-3">Actions</div>
+                    <div className="col-3">Đơn giá</div>
+                    <div className="col-3">Số lượng</div>
+                    <div className="col-3">Thành tiền</div>
+                    <div className="col-3">Thao tác</div>
                   </div>
                 </div>
               </div>
@@ -771,10 +806,16 @@ const ShoppingCart: React.FC = () => {
 
           {/* Empty cart */}
           {cartItems.length === 0 && (
-            <div className="card shadow-sm">
+            <div
+              className="card border-0 shadow-sm rounded-3"
+              style={{ borderRadius: 12 }}
+            >
               <div className="card-body text-center py-5">
-                <i className="bi bi-cart-x fs-1 text-muted"></i>
-                <p className="mt-3 text-muted">Your shopping cart is empty.</p>
+                <i className="bi bi-cart-x fs-1 text-secondary"></i>
+                <h3 className="h5 fw-bold mt-3">Giỏ hàng đang trống</h3>
+                <p className="text-secondary mb-0">
+                  Hãy khám phá và thêm sản phẩm bạn yêu thích vào giỏ hàng.
+                </p>
               </div>
             </div>
           )}
@@ -794,9 +835,16 @@ const ShoppingCart: React.FC = () => {
               .map(({ item }) => item);
 
             return (
-              <div key={shopId} className="card shadow-sm mb-3">
+              <div
+                key={shopId}
+                className="card border-0 shadow-sm rounded-3 mb-3 overflow-hidden"
+                style={{
+                  borderRadius: 12,
+                  boxShadow: "0 4px 24px rgba(15, 23, 42, 0.07)",
+                }}
+              >
                 {/* Shop Header */}
-                <div className="card-header bg-light d-flex align-items-center gap-3 py-3">
+                <div className="card-header bg-white d-flex align-items-center gap-3 py-3">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -847,24 +895,30 @@ const ShoppingCart: React.FC = () => {
                               style={{ width: "20px", height: "20px" }}
                             />
                             <div
-                              className="bg-light rounded overflow-hidden border flex-shrink-0"
+                              className="bg-light rounded overflow-hidden border flex-shrink-0 position-relative"
                               style={{ width: "96px", height: "96px" }}
                             >
-                              <img
+                              <Image
                                 src={getProductImageUrl(
-                                  item.productVariant?.imageUrl,
-                                  "/placeholder.png",
+                                  getFirstImageUrl(
+                                    item.productVariant?.imageUrl,
+                                    item.product?.imageUrl,
+                                  ),
+                                  "/image/no-image.png",
                                 )}
                                 alt={item?.product?.name}
-                                className="w-100 h-100 object-fit-cover"
+                                fill
+                                unoptimized
+                                sizes="96px"
+                                className="object-fit-cover"
                               />
                             </div>
                             <div className="flex-grow-1 min-w-0">
                               <h6 className="fw-bold mb-1 text-truncate">
-                                {item?.product?.name || "Uploading product..."}
+                                {item?.product?.name || "Đang tải tên sản phẩm..."}
                               </h6>
                               <div className="small text-muted mb-1">
-                                Shop:{" "}
+                                Cửa hàng:{" "}
                                 {item?.product?.shop?.id ? (
                                   <Link
                                     href={`/shop/${item.product.shop.id}`}
@@ -875,17 +929,17 @@ const ShoppingCart: React.FC = () => {
                                 ) : (
                                   getShopDisplayName(
                                     item?.product?.shop,
-                                    "Uploading shop name...",
+                                    "Đang tải tên cửa hàng...",
                                   )
                                 )}
                               </div>
                               {(item?.productVariant ||
                                 item.productVariant?.id) && (
                                 <div className="small text-muted d-flex align-items-center gap-1">
-                                  Classify:{" "}
+                                  Phân loại:{" "}
                                   <span className="text-dark fw-medium">
                                     {item?.productVariant?.variantName ||
-                                      "Uploading variant name..."}
+                                    "Đang tải phân loại..."}
                                   </span>
                                   <i className="bi bi-chevron-down"></i>
                                 </div>
@@ -894,7 +948,7 @@ const ShoppingCart: React.FC = () => {
                                 <div className="mt-2">
                                   <span className="badge bg-secondary">
                                     {item.lockedReason ||
-                                      "Uploading locked reason..."}
+                                    "Sản phẩm hiện không khả dụng"}
                                   </span>
                                 </div>
                               )}
@@ -908,7 +962,7 @@ const ShoppingCart: React.FC = () => {
                             {/* Price */}
                             <div className="col-6 col-md-3">
                               <div className="d-md-none small text-muted mb-1">
-                                Unit price
+                                Đơn giá
                               </div>
                               <div className="fw-bold">
                                 {formatCurrency(
@@ -920,7 +974,7 @@ const ShoppingCart: React.FC = () => {
                             {/* Quantity */}
                             <div className="col-6 col-md-3">
                               <div className="d-md-none small text-muted mb-1">
-                                Quantity
+                                Số lượng
                               </div>
                               <div
                                 className="btn-group"
@@ -1012,7 +1066,7 @@ const ShoppingCart: React.FC = () => {
                                 className="btn btn-link text-danger p-2"
                                 onClick={() => removeItem(item.id)}
                                 disabled={updatingItems.has(item.id)}
-                                title="Xoa san pham"
+                                title="Xóa sản phẩm"
                               >
                                 {updatingItems.has(item.id) ? (
                                   <span
@@ -1039,11 +1093,17 @@ const ShoppingCart: React.FC = () => {
         <div className="col-lg-4">
           <div style={{ top: "88px" }}>
             {/* Payment Summary */}
-            <div className="card shadow-sm mb-3">
+            <div
+              className="card border-0 shadow-sm rounded-3 mb-3"
+              style={{
+                borderRadius: 12,
+                boxShadow: "0 4px 24px rgba(15, 23, 42, 0.07)",
+              }}
+            >
               <div className="card-body">
                 <div className="d-flex justify-content-between mb-3">
                   <span className="text-muted small">
-                    Temporarily calculated ({selectedCount} items selected)
+                    Tạm tính ({selectedCount} sản phẩm đã chọn)
                   </span>
                   <span className="fw-semibold">
                     {formatCurrency(calculateSubtotal())}
@@ -1051,13 +1111,13 @@ const ShoppingCart: React.FC = () => {
                 </div>
                 <hr className="border-dashed" />
                 <div className="d-flex justify-content-between align-items-end mb-4">
-                  <span className="fw-bold">Total</span>
+                  <span className="fw-bold">Tổng cộng</span>
                   <div className="text-end">
                     <div className="h4 fw-bold text-primary mb-0">
                       {formatCurrency(calculateTotal())}
                     </div>
                     <small className="text-muted" style={{ fontSize: "10px" }}>
-                      (Already includes VAT if applicable)
+                      (Đã bao gồm VAT nếu có)
                     </small>
                   </div>
                 </div>
@@ -1066,7 +1126,7 @@ const ShoppingCart: React.FC = () => {
                   disabled={selectedCount === 0}
                   onClick={() => void handleCheckout()}
                 >
-                  CHECKOUT ({selectedCount})
+                  TIẾN HÀNH ĐẶT HÀNG ({selectedCount})
                   <i className="bi bi-arrow-right"></i>
                 </button>
                 <div className="d-flex justify-content-center gap-4 mt-3 opacity-50">
@@ -1078,16 +1138,16 @@ const ShoppingCart: React.FC = () => {
             </div>
 
             {/* Terms */}
-            <div className="alert alert-light text-center small">
-              By clicking "Checkout", you agree to our{" "}
+            <div className="alert alert-light border-0 rounded-3 text-center small text-secondary">
+              Khi nhấn "Tiến hành đặt hàng", bạn đồng ý với{" "}
               <a href="#" className="text-primary">
-                Terms of Service
+                Điều khoản dịch vụ
               </a>{" "}
-              and{" "}
+              và{" "}
               <a href="#" className="text-primary">
-                Privacy Policy
+                Chính sách quyền riêng tư
               </a>{" "}
-              of Naxe.
+              của NEXAMART.
             </div>
           </div>
         </div>
@@ -1102,13 +1162,19 @@ const ShoppingCart: React.FC = () => {
         <div className="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
           {suggestions.map((product) => (
             <div key={product.id} className="col">
-              <div className="card h-100 border shadow-sm">
+              <div
+                className="card h-100 border-0 shadow-sm rounded-3 overflow-hidden"
+                style={{ borderRadius: 12 }}
+              >
                 <div className="position-relative">
-                  <div className="ratio ratio-1x1 bg-light">
-                    <img
+                  <div className="ratio ratio-1x1 bg-light position-relative">
+                    <Image
                       src={getProductImageUrl(product.image)}
                       alt={product.name}
-                      className="card-img-top object-fit-cover"
+                      fill
+                      unoptimized
+                      sizes="(max-width: 768px) 50vw, (max-width: 992px) 25vw, 16vw"
+                      className="object-fit-cover"
                     />
                   </div>
                   {product.badge && (
@@ -1156,7 +1222,8 @@ const ShoppingCart: React.FC = () => {
           ))}
         </div>
       </section>
-    </div>
+      </div>
+    </main>
   );
 };
 

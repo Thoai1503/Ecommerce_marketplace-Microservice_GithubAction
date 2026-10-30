@@ -4,6 +4,17 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useShipmentList, useUpdateShipmentStatus } from "@/lib/hooks";
 import { ShipmentStatus } from "@/lib/api";
+import {
+  BadgeCheck,
+  CircleCheck,
+  CircleX,
+  Clock3,
+  MapPin,
+  PackageCheck,
+  RotateCcw,
+  Truck,
+  type LucideIcon,
+} from "lucide-react";
 
 const statusOptions: Array<{ label: string; value: ShipmentStatus | "" }> = [
   { label: "Tất cả", value: "" },
@@ -26,6 +37,17 @@ const statusLabel: Record<ShipmentStatus, string> = {
   DELIVERED: "Đã giao hàng",
   FAILED: "Thất bại",
   RETURNED: "Đã trả lại",
+};
+
+const statusIcons: Record<ShipmentStatus, LucideIcon> = {
+  PENDING: Clock3,
+  CONFIRMED: BadgeCheck,
+  PICKED_UP: PackageCheck,
+  IN_TRANSIT: Truck,
+  OUT_FOR_DELIVERY: MapPin,
+  DELIVERED: CircleCheck,
+  FAILED: CircleX,
+  RETURNED: RotateCcw,
 };
 
 export default function AdminPage() {
@@ -183,35 +205,45 @@ export default function AdminPage() {
             </thead>
             <tbody className="divide-y divide-zinc-100">
               {shipments?.length ? (
-                shipments.map((shipment) => (
-                  <tr key={shipment.id} className="hover:bg-zinc-50">
-                    <td className="px-4 py-3 font-medium text-zinc-800">
-                      {shipment.trackingCode}
-                    </td>
-                    <td className="px-4 py-3 text-zinc-700">
-                      {shipment.shopRefId}
-                    </td>
-                    <td className="px-4 py-3 text-zinc-700">
-                      {shipment.orderShipmentRefId}
-                    </td>
-                    <td className="px-4 py-3 text-zinc-700">
-                      {statusLabel[shipment.status]}
-                    </td>
-                    <td className="px-4 py-3 text-zinc-600">
-                      {new Date(shipment.createdAt).toLocaleString()}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/admin/shipments/${shipment.id}`}
-                          className="inline-flex items-center justify-center rounded-md text-sm font-medium text-white bg-zinc-900 px-3 py-1.5 shadow-sm hover:bg-zinc-800"
-                        >
-                          Xem chi tiết
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                shipments.map((shipment) => {
+                  const StatusIcon = statusIcons[shipment.status];
+                  return (
+                    <tr key={shipment.id} className="hover:bg-zinc-50">
+                      <td className="px-4 py-3 font-medium text-zinc-800">
+                        {shipment.trackingCode}
+                      </td>
+                      <td className="px-4 py-3 text-zinc-700">
+                        {shipment.shopRefId}
+                      </td>
+                      <td className="px-4 py-3 text-zinc-700">
+                        {shipment.orderShipmentRefId}
+                      </td>
+                      <td className="px-4 py-3 text-zinc-700">
+                        <span className="inline-flex items-center gap-2">
+                          <StatusIcon
+                            size={16}
+                            aria-hidden="true"
+                            className="shrink-0"
+                          />
+                          {statusLabel[shipment.status]}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-zinc-600">
+                        {new Date(shipment.createdAt).toLocaleString()}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/admin/shipments/${shipment.id}`}
+                            className="inline-flex items-center justify-center rounded-md text-sm font-medium text-white bg-zinc-900 px-3 py-1.5 shadow-sm hover:bg-zinc-800"
+                          >
+                            Xem chi tiết
+                          </Link>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
                 <tr>
                   <td

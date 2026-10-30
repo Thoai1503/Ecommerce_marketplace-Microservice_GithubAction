@@ -24,6 +24,31 @@ const normalizeShop = (shop: any) => {
   };
 };
 
+const getProductImageUrl = (product: any) => {
+  const directImage = product?.imageUrl ?? product?.image_url;
+  if (typeof directImage === "string" && directImage.trim()) {
+    return directImage.trim();
+  }
+
+  const images = Array.isArray(product?.images) ? product.images : [];
+  const thumbnail = images.find(
+    (image: any) =>
+      image?.isThumbnail === true ||
+      image?.is_thumbnail === true ||
+      image?.isThumbnail === 1 ||
+      image?.is_thumbnail === 1 ||
+      image?.isThumbnail === "1" ||
+      image?.is_thumbnail === "1",
+  );
+  const image = thumbnail ?? images[0];
+  const imageUrl =
+    typeof image === "string"
+      ? image
+      : (image?.imageUrl ?? image?.image_url ?? image?.url);
+
+  return typeof imageUrl === "string" ? imageUrl.trim() : "";
+};
+
 const normalizeProduct = (product: any) => {
   if (!product) return null;
 
@@ -33,6 +58,7 @@ const normalizeProduct = (product: any) => {
     ...product,
     id: product.id ?? product.product_id ?? 0,
     name: product.name ?? product.product_name ?? "",
+    imageUrl: getProductImageUrl(product),
     stockQuantity: product.stockQuantity ?? product.stock_quantity,
     isActive: product.isActive ?? product.is_active,
     shop: normalizedShop,

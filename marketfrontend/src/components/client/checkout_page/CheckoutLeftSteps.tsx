@@ -401,8 +401,9 @@ export default function CheckoutLeftSteps({
                             <div className="d-flex gap-3 py-2">
                               <img
                                 src={getProductImageUrl(
-                                  item.productVariant?.imageUrl,
-                                  "/placeholder.png",
+                                  item.productVariant?.imageUrl ||
+                                    item.product?.imageUrl,
+                                  "/image/no-image.png",
                                 )}
                                 alt={item.product?.name}
                                 style={styles.productImg}
